@@ -25,20 +25,20 @@ Example: `HeightBasedResize(filepath="C:/mydir/miimage.jpg",Height=300)` resizes
 
 Here is an example code to resize all images to 200x200px, given an "original files path" and a "resized files path" as output:
 
->`from os import listdir
-from os.path import isfile, join
-import os
-
-os.getcwd()
-
-ofp = 'original images/' #Original Files Path
-rfp = 'resized images/' #Resized Files Path
-files = [f for f in listdir(ofp) if isfile(join(ofp, f))]
-
-width = 200
-height = 200
-for file in files:
-    print(file)
-    resized = CustomResize(str(ofp+file), width, height)
-    cv2.imwrite(str(rfp+'resized_'+file), resized)`
+>`from os import listdir`
+>`from os.path import isfile, join`
+>`import os`
+>
+>`os.getcwd()`
+>
+>`ofp = 'original images/' #Original Files Path`
+>`rfp = 'resized images/' #Resized Files Path`
+>`files = [f for f in listdir(ofp) if isfile(join(ofp, f))]`
+>
+>`width = 200`
+>`height = 200`
+>`for file in files:`
+>`    print(file)`
+>`    resized = CustomResize(str(ofp+file), width, height)`
+>`    cv2.imwrite(str(rfp+'resized_'+file), resized)``
 
