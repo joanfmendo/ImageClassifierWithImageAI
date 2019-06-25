@@ -1,19 +1,19 @@
 # Image Classifier With ImageAI (Python 3)
 This is a simple tutorial on how to use some neural networks to classify images. The algorithms chosen are those contained in the ImageAI package for Python 3 (SqueezeNet, ResNet, InceptionV3 and DenseNet). It is very simple to implement and very easy to understand. 
 
-I strongly recommend using Google Colab to run these scripts, since neural networks require a lot of computing and memory capacity. The best thing is thata GColab is free!! You can find a tutorial [here] (https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d).
+**I strongly recommend using Google Colab** to run these scripts, since neural networks require a lot of computing and memory capacity. The best thing is that GColab is free!! You can find a tutorial [here](https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d).
 
-As you can read on  [IMAGEAI website] (http://imageai.org/) "ImageAI is an easy to use Computer Vision Python library that empowers developers to easily integrate state-of-the-art Artificial Intelligence features into their new and existing applications and systems. It is used by thousands of developers, students, researchers, tutors and experts in corporate organizations around the world." It can be used for image recognition (this case), video detection and object detection.
+As you can read on  [**IMAGEAI** website](http://imageai.org/) *"ImageAI is an easy to use Computer Vision Python library that empowers developers to easily integrate state-of-the-art Artificial Intelligence features into their new and existing applications and systems. It is used by thousands of developers, students, researchers, tutors and experts in corporate organizations around the world."* It can be used for image recognition (this case), video detection and object detection.
 
 For image recognition (or classification, it's the same) ImageAI offers these Neural Network (ANN) algorithms:
-- Residual Neural Network (RESNET): read this [article] (https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035)
-- SQUEEZENET: read this [article] (https://towardsdatascience.com/review-squeezenet-image-classification-e7414825581a).
-- Densely Connected Convolutional Networks (DENSENET): read this [article] (https://towardsdatascience.com/understanding-and-visualizing-densenets-7f688092391a).
-- Inception Network (INCEPTIONV3): read this [article] (https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-network-7fc52b863202).
+- Residual Neural Network (RESNET): read this [article](https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035)
+- SQUEEZENET: read this [article](https://towardsdatascience.com/review-squeezenet-image-classification-e7414825581a).
+- Densely Connected Convolutional Networks (DENSENET): read this [article](https://towardsdatascience.com/understanding-and-visualizing-densenets-7f688092391a).
+- Inception Network (INCEPTIONV3): read this [article](https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-network-7fc52b863202).
 
 # HOW TO USE THE SCRIPTS
 ## 1. Format your training set
-In the file "ImageResize.py" you can find a simple script to format and resize the images that you will use to your training. It contains 4 functions:
+In the file **"ImageResize.py"** you can find a simple script to format and resize the images that you will use to your training. It contains 4 functions:
 - `def ProportionalResize(filepath,scale_percent)`: function to resize an image based on a proportion (or percentage) of the original image
 Example: `ProportionalResize(filepath="C:/mydir/miimage.jpg",scale_percent=0.6)` resizes the image to 60%
 - `def CustomResize(filepath,width, height)`: Function to resize an image based on a given dimension
@@ -42,6 +42,9 @@ Here is an example code to resize all images to 200x200px, given an "original fi
 >`    resized = CustomResize(str(ofp+file), width, height)`
 >`    cv2.imwrite(str(rfp+'resized_'+file), resized)`
 
-Remember that your formated images must be stored in a forder (i.e: "")
+Remember that your formated images must be stored in a sub-forder placed in the folder where you will run your python scripts (i.e: "My project/jobs"), and inside that folder (in this case, "jobs") you must place two subfolders "jobs/train" and "jobs/test". Inside both "train" and "test" folders you must separate the images by their category (in this case "test/chef", "test/judge" or "test/pilot"). [**Please use this data set to understand how the files have to be stored**](https://github.com/OlafenwaMoses/IdenProf/releases/download/v1.0/idenprof-jpg.zip).
 
 ## 2. use a Neural Network to classify your images
+
+If you have a very powerful computer you can use the file **"ImageClassifier.py"**. Otherwise I suggest to use the file **"image_classification.ipynb"** to be processed in **Google Colab**. Remember: there is a tutorial to use GColab [here](https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d).
+
