@@ -11,3 +11,34 @@ For image recognition (or classification, it's the same) ImageAI offers these Ne
 - Densely Connected Convolutional Networks (DENSENET): read this article https://towardsdatascience.com/understanding-and-visualizing-densenets-7f688092391a
 - Inception Network (INCEPTIONV3): read this article https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-network-7fc52b863202
 
+HOW TO USE THE SCRIPTS
+1. Format your training set
+In the file "ImageResize.py" you can find a simple script to format and resize the images that you will use to your training. It contains 4 functions:
+- def ProportionalResize(filepath,scale_percent): function to resize an image based on a proportion (or percentage) of the original image
+Example: ProportionalResize(filepath="C:/mydir/miimage.jpg",scale_percent=0.6) resizes the image to 60%
+- def CustomResize(filepath,width, height): Function to resize an image based on a given dimension
+Example: CustomResize(filepath="C:/mydir/miimage.jpg",width=300, height=200) resizes the size to 300x200 pixels
+- def WidthBasedResize(filepath,width): function to resize an image based on is width
+Example: WidthBasedResize(filepath="C:/mydir/miimage.jpg",width=300) resizes the image to a width of 300px while retaining its proportional height
+- def HeightBasedResize(filepath,Height): function to resize an image based on is height
+Example: HeightBasedResize(filepath="C:/mydir/miimage.jpg",Height=300) resizes the image to a height of 300px while retaining its proportional width
+
+Here is an example code to resize all images to 200x200px, given an "original files path" and a "resized files path" as output:
+
+from os import listdir
+from os.path import isfile, join
+import os
+
+os.getcwd()
+
+ofp = 'original images/' #Original Files Path
+rfp = 'resized images/' #Resized Files Path
+files = [f for f in listdir(ofp) if isfile(join(ofp, f))]
+
+width = 200
+height = 200
+for file in files:
+    print(file)
+    resized = CustomResize(str(ofp+file), width, height)
+    cv2.imwrite(str(rfp+'resized_'+file), resized)
+
