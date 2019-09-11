@@ -14,33 +14,34 @@ For image recognition (or classification, it's the same) ImageAI offers these Ne
 # HOW TO USE THE SCRIPTS
 ## 1. Format your training set
 In the file **"ImageResize.py"** you can find a simple script to format and resize the images that you will use to your training. It contains 4 functions:
-- `def ProportionalResize(filepath,scale_percent)`: function to resize an image based on a proportion (or percentage) of the original image
-Example: `ProportionalResize(filepath="C:/mydir/miimage.jpg",scale_percent=0.6)` resizes the image to 60%
-- `def CustomResize(filepath,width, height)`: Function to resize an image based on a given dimension
-Example: `CustomResize(filepath="C:/mydir/miimage.jpg",width=300, height=200)` resizes the size to 300x200 pixels
-- `def WidthBasedResize(filepath,width)`: function to resize an image based on is width
-Example: `WidthBasedResize(filepath="C:/mydir/miimage.jpg",width=300)` resizes the image to a width of 300px while retaining its proportional height
-- `def HeightBasedResize(filepath,Height)`: function to resize an image based on is height
-Example: `HeightBasedResize(filepath="C:/mydir/miimage.jpg",Height=300)` resizes the image to a height of 300px while retaining its proportional width
+- ```def ProportionalResize(filepath,scale_percent)```: function to resize an image based on a proportion (or percentage) of the original image
+Example: ```ProportionalResize(filepath="C:/mydir/miimage.jpg",scale_percent=0.6)``` resizes the image to 60%
+- ```def CustomResize(filepath,width, height)```: Function to resize an image based on a given dimension
+Example: ```CustomResize(filepath="C:/mydir/miimage.jpg",width=300, height=200)``` resizes the size to 300x200 pixels
+- ```def WidthBasedResize(filepath,width)```: function to resize an image based on is width
+Example: ```WidthBasedResize(filepath="C:/mydir/miimage.jpg",width=300)``` resizes the image to a width of 300px while retaining its proportional height
+- ```def HeightBasedResize(filepath,Height)```: function to resize an image based on is height
+Example: ```HeightBasedResize(filepath="C:/mydir/miimage.jpg",Height=300)``` resizes the image to a height of 300px while retaining its proportional width
 
 Here is an example code to resize all images to 200x200px, given an "original files path" and a "resized files path" as output:
+```
+from os import listdir
+from os.path import isfile, join
+import os
 
->`from os import listdir`
->`from os.path import isfile, join`
->`import os`
->
->`os.getcwd()`
->
->`ofp = 'original images/' #Original Files Path`
->`rfp = 'resized images/' #Resized Files Path`
->`files = [f for f in listdir(ofp) if isfile(join(ofp, f))]`
->
->`width = 200`
->`height = 200`
->`for file in files:`
->`    print(file)`
->`    resized = CustomResize(str(ofp+file), width, height)`
->`    cv2.imwrite(str(rfp+'resized_'+file), resized)`
+os.getcwd()
+
+ofp = 'original images/' #Original Files Path
+rfp = 'resized images/' #Resized Files Path
+files = [f for f in listdir(ofp) if isfile(join(ofp, f))]
+
+width = 200
+height = 200
+for file in files:
+    print(file)
+    resized = CustomResize(str(ofp+file), width, height)
+    cv2.imwrite(str(rfp+'resized_'+file), resized)
+```
 
 Remember that your formated images must be stored in a sub-forder placed in the folder where you will run your python scripts (i.e: "My project/jobs"), and inside that folder (in this case, "jobs") you must place two subfolders "jobs/train" and "jobs/test". Inside both "train" and "test" folders you must separate the images by their category (in this case "test/chef", "test/judge" or "test/pilot"). [**Please use this data set to understand how the files have to be stored**](https://github.com/OlafenwaMoses/IdenProf/releases/download/v1.0/idenprof-jpg.zip).
 
@@ -67,28 +68,30 @@ The `TrainModel` function will deliver two outputs: a .h5 file that contains the
 Example: `ImageClassifier(Image= "/pathtomilfile/image.jpg", ModelFile = "/pathtomodel/model_ex-144_acc-0.827778.h5", JsonFile = "/pathtojsonfile/model_class.json", Classes=10)`
 
 Here is an example code to train your model (in Google Colab):
->`from google.colab import drive`
->`drive.mount('/gdrive')`
->`import os`
->
->`Classes = 2 #number of classes`
->`Epochs = 250 #humber of epochs`
->`BatchSize = 30 #batch size`
->`files = "/gdrive/My Drive/My Project/ImagesFolder"`
+```
+from google.colab import drive
+drive.mount('/gdrive')
+import os
 
->`TrainModel(files, Classes, Epochs, BatchSize)`
+Classes = 2 #number of classes
+Epochs = 250 #humber of epochs
+BatchSize = 30 #batch size
+files = "/gdrive/My Drive/My Project/ImagesFolder"
 
+TrainModel(files, Classes, Epochs, BatchSize)
+```
 And here is a sample code to classify your images:
+```
+from os import listdir
+from os.path import isfile, join
+import os
+ModelFile = "pathtomodel/model_ex-144_acc-0.827778.h5"
+JsonFile = "pathtojson/model_class.json"
+Classes = 10
+tfp = 'path to test images/' #Test Files Path
+files = [f for f in listdir(tfp) if isfile(join(tfp, f))]
 
->`from os import listdir`
->`from os.path import isfile, join`
->`import os`
->`ModelFile = "pathtomodel/model_ex-144_acc-0.827778.h5"`
->`JsonFile = "pathtojson/model_class.json"`
->`Classes = 10`
->`tfp = 'path to test images/' #Test Files Path`
->`files = [f for f in listdir(tfp) if isfile(join(tfp, f))]`
->
->`for file in files:`
->`    result = ImageClassifier(str(tfp+file), ModelFile, JsonFile, Classes)`
->`    print(str(file)+": "+str(result))`
+for file in files:
+    result = ImageClassifier(str(tfp+file), ModelFile, JsonFile, Classes)
+    print(str(file)+": "+str(result))
+```
