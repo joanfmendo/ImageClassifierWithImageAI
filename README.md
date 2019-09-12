@@ -50,22 +50,31 @@ Remember that your formated images must be stored in a sub-forder placed in the 
 If you have a very powerful computer you can use the file **"ImageClassifier.py"**. Otherwise I suggest to use the file **"image_classification.ipynb"** to be processed in **Google Colab**. Remember: there is a tutorial to use GColab [here](https://medium.com/deep-learning-turkey/google-colab-free-gpu-tutorial-e113627b9f5d).
 
 Both files contains these functions:
-- `def TrainModel(files, Classes, Epochs, BatchSize)`: the training function that requires these parameters:
->    `files`: path to your set of images
->    `number_objects`: number of clases of your dataset (i.e.: 10 clases of jobs)
->    `num_experiments`: number of iterations (epochs)
->    `Enhance_data` (Optional): if true, creates modified copies of the images to maximize accuracy (but more process cost)
->    `batch_size`: number of images that the model trainer will study at once
->    `Show_network_summary` (Optional): if true, shows the structure of the model type
-Example: `TrainModel(files= "/gdrive/My Drive/My Project/ImagesFolder", Classes=10, Epochs=100, BatchSize=24)`
+```
+def TrainModel(files, Classes, Epochs, BatchSize)
+'''
+# the training function that requires these parameters:
+    files: path to your set of images
+    number_objects: number of clases of your dataset (i.e.: 10 clases of jobs)
+    num_experiments: number of iterations (epochs)
+    Enhance_data (Optional): if true, creates modified copies of the images to maximize accuracy (but more process cost)
+    batch_size: number of images that the model trainer will study at once
+    Show_network_summary (Optional): if true, shows the structure of the model type
+'''
+```
+Example: ```TrainModel(files= "/gdrive/My Drive/My Project/ImagesFolder", Classes=10, Epochs=100, BatchSize=24)```
 
 The `TrainModel` function will deliver two outputs: a .h5 file that contains the trained model and a .json file that contains the classes of the model. The first file will be stored in */My Project/ImagesFolder/jobs/models* and the second one in */My Project/ImagesFolder/jobs/json*. It will store a new file model each time that accuracy is improved.
-
-- `def ImageClassifier(Image, ModelFile, JsonFile, Classes)`: the training function that requires these parameters:
->    `Image`: path to the image that you want to classify
->    `ModelFile`: path to the model trained with the `TrainModel` function.
->    `JsonFile`: path to the file that contains the list of classes trained with the `TrainModel` function.
-Example: `ImageClassifier(Image= "/pathtomilfile/image.jpg", ModelFile = "/pathtomodel/model_ex-144_acc-0.827778.h5", JsonFile = "/pathtojsonfile/model_class.json", Classes=10)`
+```
+- `def ImageClassifier(Image, ModelFile, JsonFile, Classes)`
+'''
+# the training function that requires these parameters:
+    Image: path to the image that you want to classify
+    ModelFile: path to the model trained with the `TrainModel` function.
+    JsonFile: path to the file that contains the list of classes trained with the `TrainModel` function.
+'''
+```
+Example: ```ImageClassifier(Image= "/pathtomilfile/image.jpg", ModelFile = "/pathtomodel/model_ex-144_acc-0.827778.h5", JsonFile = "/pathtojsonfile/model_class.json", Classes=10)```
 
 Here is an example code to train your model (in Google Colab):
 ```
